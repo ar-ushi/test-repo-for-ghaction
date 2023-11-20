@@ -17,7 +17,7 @@ const getDetailsForPr = async() => {
     })
     const { context } = gh;
     const pull_number = context.payload.pull_request.body;
-    const repo = constext.payload.pull_request.base.repo.name;
+    const repo = context.payload.pull_request.base.repo.name;
     const jiraAPIUrl = `${orgUrl}/rest/api/2/issue/${jiraId}`;
     const fields = await retrieveDetails({
         authToken,
