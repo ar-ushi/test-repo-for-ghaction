@@ -11,8 +11,8 @@ jobs:
       - name: Extract Ticket ID from Branch Name
         id: get-jid
         run: |
-          branch_name = "%{{ github.event.pull_request.head.ref }}"
-          jid = $( echo "$branch_name" | cut -d'/' -f1)
+          branch_name=${{ github.event.pull_request.head.ref }}
+          jid=$( echo "$branch_name" | cut -d'/' -f1)
           echo "::set_output name = jira_id::$jid"
       - name : Extract Branch User
         id: get-user
