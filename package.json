@@ -6,6 +6,6 @@
     "@octokit/rest": "^20.0.2"
   },
   "devDependencies": {
-    "@types/node": "^20.9.0"
+    "@types/node": "^20.9.2"
   }
 }
