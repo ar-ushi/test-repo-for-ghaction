@@ -1,6 +1,5 @@
 {
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "build": "ncc build src/index.js -o dist"
   },
