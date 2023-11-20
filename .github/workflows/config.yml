@@ -11,12 +11,12 @@ jobs:
         run: |
           branch_name=${{ github.event.pull_request.head.ref }}
           jid=$( echo "$branch_name" | cut -d'/' -f1)
-          echo "::set_output name = jira_id::$jid"
-      - name : Extract Branch User
+          echo "::set_output name=jira_id::$jid"
+      - name : Extract Email
         id: get-user
         run: |
-          branch_username=${{ github.event.pull_request.user.login }}
-          echo "branch_user=$branch_username" 
+          user_email=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/users/${{ github.event.pull_request.user.login }}" | jq -r '.email')
+          echo "::set_output assignee=$user_email" 
       - name : actions
         id : typescript
         uses: ./
@@ -25,4 +25,4 @@ jobs:
           jiraId: ${{ steps.get-jid.outputs.jira_id }}
           orgUrl: 'https://mock-jira-enterprise.atlassian.net'
           jiraToken: ${{ secrets.JIRA_TOKEN }}
-          assigneeName: ${{ steps.get-user.outputs.branch_user }}
+          assigneeName: ${{ steps.get-user.outputs.user_email }}
