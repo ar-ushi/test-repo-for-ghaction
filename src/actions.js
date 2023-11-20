@@ -15,15 +15,25 @@ const getDetailsForPr = async() => {
     const client = new Octokit({
         auth: GHtoken
     })
-    const {context} = gh;
+    const { context } = gh;
+    const pull_number = context.payload.pull_request.body;
+    const owner = context.payload.owner.login;
+    const repo = constext.payload.pull_request.base.repo.name;
     const jiraAPIUrl = `${orgUrl}/rest/api/2/issue/${jid}`;
     const fields = await retrieveDetails({
         authToken,
         jiraAPIUrl
     })
+    const title = `${jid} | ${fields.summary}`;
     core.info(`API :::  ${fields}`)
+    await client.rest.pulls.update({
+        owner,
+        repo,
+        pull_number,
+        title
+    })
  } catch (error) {
-    
+    core.setFailed(`process failed with ::: ${e.message}`);
  }   
 }
 
