@@ -33,7 +33,7 @@ const getDetailsForPr = async() => {
         title
     })
  } catch (error) {
-    core.setFailed(`process failed with ::: ${e.message}`);
+    core.setFailed(`process failed with ::: ${error.message}`);
  }   
 }
 
