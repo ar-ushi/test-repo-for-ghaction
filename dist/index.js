@@ -28604,7 +28604,6 @@ const getDetailsForPr = async() => {
     })
     const { context } = gh;
     const pull_number = context.payload.pull_request.body;
-    const owner = context.payload.owner.login;
     const repo = constext.payload.pull_request.base.repo.name;
     const jiraAPIUrl = `${orgUrl}/rest/api/2/issue/${jiraId}`;
     const fields = await retrieveDetails({
@@ -28614,7 +28613,6 @@ const getDetailsForPr = async() => {
     const title = `${jiraId} | ${fields.summary}`;
     core.info(`API :::  ${fields}`)
     await client.rest.pulls.update({
-        owner,
         repo,
         pull_number,
         title
