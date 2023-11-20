@@ -8,7 +8,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Script
         run: |
-        output=$(node dist/index.js)
+        output=${{ node dist/index.js }}
         echo"$output
       - name: Extract Ticket ID from Branch Name
         id: get-jid
