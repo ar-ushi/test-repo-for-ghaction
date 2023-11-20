@@ -1,15 +1,6 @@
 import * as core from '@actions/core';
 
-interface getDetailsInput{
-    authToken: string;
-    jiraAPIUrl: string;
-}
-
-interface Fields{
-    [key: string] : any;
-}
-
-export default async ({authToken, jiraAPIUrl} : getDetailsInput) => {
+export default async ({authToken, jiraAPIUrl}) => {
 try {
     core.info('fetching details...');
     const response = await fetch(jiraAPIUrl, {
@@ -24,7 +15,7 @@ try {
     } else {
         throw new Error ('No response from Jira API');
     }
-} catch (error : any) {
+} catch (error) {
     core.setFailed(error.message);
 }
 };
