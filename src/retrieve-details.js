@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-const fetch = import('node-fetch');
+const {fetch} = require('node-fetch');
 
 module.exports = async ({authToken, jiraAPIUrl}) => {
 try {
@@ -8,7 +8,7 @@ try {
         headers: {
            Authorization: `Basic ${authToken}`
         }
-    })
+    });
     if (response.ok){
         const {fields} = await response.json();
         core.info(fields); //debug fields
