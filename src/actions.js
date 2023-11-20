@@ -1,7 +1,8 @@
-import * as core from '@actions/core';
-import * as gh from '@actions/github';
-import { Octokit } from '@octokit/rest';
-import retrieveDetails from './retrieve-details';
+
+const core = require('@actions/core');
+const gh = require('@actions/github');
+const { Octokit } = require("@octokit/rest");
+const retrieveDetails = require('./retrieve-details')
 
 export default async function getDetailsForPr() {
  try {
@@ -10,7 +11,7 @@ export default async function getDetailsForPr() {
     const orgUrl = core.getInput('orgUrl', {required: true});
     const jiraToken = core.getInput('jiraToken', {required: true});  
     const username= core.getInput('username', {required: true});
-    const authToken = btoa(`${username}:${jiraToken}`);
+    const authToken = Buffer.from(`${username}:${jiraToken}`).toString('base64');
     const client = new Octokit({
         auth: GHtoken
     })

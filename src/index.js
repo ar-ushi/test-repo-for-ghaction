@@ -1,5 +1,5 @@
-import getDetailsForPr from './actions'; 
-import * as core from '@actions/core';
+const getDetailsForPr = require('./actions');
+const core = require('@actions/core');
 
 getDetailsForPr().catch(e =>
     core.setFailed(e.message));
