@@ -9,8 +9,8 @@ export async function getDetailsForPr() {
     const jid = core.getInput('jiraId', {required: true});
     const orgUrl = core.getInput('orgUrl', {required: true});
     const jiraToken = core.getInput('jiraToken', {required: true});  
-    const assigneeName = core.getInput('assigneeName', {required: true});
-    const authToken = Buffer.from(`${assigneeName}:${jiraToken}`).toString('base64');
+    const username= core.getInput('username', {required: true});
+    const authToken = btoa(`${username}:${jiraToken}`);
     const client = new Octokit({
         auth: GHtoken
     })
