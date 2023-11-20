@@ -11,7 +11,7 @@ jobs:
         run: |
           branch_name=${{ github.event.pull_request.head.ref }}
           jiraId=$( echo "$branch_name" | cut -d'/' -f1)
-          echo "jira_id=$(jiraId)" >> $GITHUB_OUTPUT
+          echo "set_output name=jira_id:::$(jiraId)" >> $GITHUB_OUTPUT
       - name : actions
         id : typescript
         uses: ./
