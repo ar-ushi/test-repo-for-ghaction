@@ -7,17 +7,17 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
       - name: Extract Ticket ID from Branch Name
-        id: get-jid
+        id: getjid
         run: |
           branch_name=${{ github.event.pull_request.head.ref }}
-          jid=$( echo "$branch_name" | cut -d'/' -f1)
-          echo "::set_output name=jira_id::$jid"
+          jiraId=$( echo "$branch_name" | cut -d'/' -f1)
+          echo "::set_output name=jira_id::$jiraId"
       - name : actions
         id : typescript
         uses: ./
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
-          jiraId: ${{ steps.get-jid.outputs.jira_id }}
+          jiraId: ${{ steps.getjid.outputs.jira_id }}
           orgUrl: 'https://mock-jira-enterprise.atlassian.net'
           jiraToken: ${{ secrets.JIRA_TOKEN }}
           username: ${{ secrets.PR_USERNAME }}
