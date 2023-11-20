@@ -28608,6 +28608,7 @@ const getDetailsForPr = async() => {
         authToken,
         jiraAPIUrl
     })
+    core.info(`API :::  ${fields}`)
  } catch (error) {
     
  }   
