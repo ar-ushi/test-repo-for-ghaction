@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-const {fetch} = require('node-fetch');
+import fetch from 'node-fetch';
 
 module.exports = async ({authToken, jiraAPIUrl}) => {
 try {
