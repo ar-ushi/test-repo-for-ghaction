@@ -30531,10 +30531,10 @@ module.exports = parseParams
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-const getDetailsForPr = __nccwpck_require__(3561);
+const entryPoint= __nccwpck_require__(3561);
 const core = __nccwpck_require__(2186);
 
-getDetailsForPr.catch(e =>
+entryPoint.getDetailsForPr().catch(e =>
     core.setFailed(e.message));
     
 
