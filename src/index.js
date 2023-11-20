@@ -1,6 +1,6 @@
-const entryPoint= require('./actions');
-const core = require('@actions/core');
+import {getDetailsForPr} from './actions'; 
+import core from '@actions/core';
 
-entryPoint.getDetailsForPr().catch(e =>
+getDetailsForPr().catch(e =>
     core.setFailed(e.message));
     

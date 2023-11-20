@@ -1,8 +1,8 @@
 
-const core = require('@actions/core');
-const gh = require('@actions/github');
-const { Octokit } = require("@octokit/rest");
-const retrieveDetails = require('./retrieve-details')
+import * as core from '@actions/core';
+import * as gh from '@actions/github';
+import { Octokit } from '@octokit/rest';
+import retrieveDetails from './retrieve-details';
 
 const getDetailsForPr = async() => {
  try {
