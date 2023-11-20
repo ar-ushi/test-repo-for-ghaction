@@ -19,7 +19,6 @@ inputs:
   assigneeName:
     description: 'Asignee Name'
     required: true
-outputs:
 runs:
   main: 'src/index.js'
 
