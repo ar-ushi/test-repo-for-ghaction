@@ -30534,7 +30534,7 @@ var __webpack_exports__ = {};
 const getDetailsForPr = __nccwpck_require__(3561);
 const core = __nccwpck_require__(2186);
 
-getDetailsForPr().catch(e =>
+getDetailsForPr.catch(e =>
     core.setFailed(e.message));
     
 
