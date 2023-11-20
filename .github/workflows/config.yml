@@ -17,7 +17,7 @@ jobs:
         uses: ./
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
-          jiraId: ${{ steps.getjid.outputs.jiraId }}
+          jiraId: ${{ needs.getjid.outputs.jira_id }}
           orgUrl: 'https://mock-jira-enterprise.atlassian.net'
           jiraToken: ${{ secrets.JIRA_TOKEN }}
           username: ${{ secrets.PR_USERNAME }}
