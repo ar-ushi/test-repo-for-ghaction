@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 
-export default async ({authToken, jiraAPIUrl}) => {
+module.exports = async ({authToken, jiraAPIUrl}) => {
 try {
     core.info('fetching details...');
     const response = await fetch(jiraAPIUrl, {

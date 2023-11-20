@@ -4,7 +4,7 @@ const gh = require('@actions/github');
 const { Octokit } = require("@octokit/rest");
 const retrieveDetails = require('./retrieve-details')
 
-export default async function getDetailsForPr() {
+const getDetailsForPr = async() => {
  try {
     const GHtoken = core.getInput('token', {required: true});
     const jid = core.getInput('jiraId', {required: true});
@@ -24,4 +24,8 @@ export default async function getDetailsForPr() {
  } catch (error) {
     
  }   
+}
+
+module.exports = {
+    getDetailsForPr
 }
