@@ -25,7 +25,6 @@ export default async function getDetailsForPr() {
     const repo = context!.payload!.pull_request!.base.repo.name;
     const bodyContent = context!.payload.pull_request!.body;
     const jiraAPIUrl = `${orgUrl}/rest/api/2/issue/${jiraId}`;
-    const ghLabelAPIUrl = `/repos/${owner}/${repo}/issues/${pull_number}/labels`
     const fields = await retrieveDetails({
         authToken,
         jiraAPIUrl,

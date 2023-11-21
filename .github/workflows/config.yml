@@ -12,13 +12,13 @@ jobs:
         run: |
           branch_name=${{ github.event.pull_request.head.ref }}
           jiraId=$( echo "$branch_name" | cut -d'/' -f1)
-          echo "set_output name=jira_id:::$(jiraId)" >> $GITHUB_OUTPUT
+          echo "::set_output name=jira_id::$(jiraId)"
       - name : actions
         id : typescript
         uses: ./
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
-          jiraId: MOE-1
+          jiraId: ${{ needs.extract_ticket_id.outputs.jira_id }}
           orgUrl: 'https://mock-jira-enterprise.atlassian.net'
           jiraToken: ${{ secrets.JIRA_TOKEN }}
           username: ${{ secrets.PR_USERNAME }}
