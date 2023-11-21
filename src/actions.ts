@@ -32,7 +32,7 @@ export default async function getDetailsForPr() {
     const title = `${jiraId} | ${fields.summary}`;
     const body = `**Description** \n\n ${fields.description} \n\n## ${bodyContent}`;
     const issueType = fields.issuetype.name.toLowerCase(); 
-    core.info(`API :::  ${fields}`)
+    core.info(`API :::  ${issueType}`)
     await client.rest.pulls.update({
         owner,
         repo,
