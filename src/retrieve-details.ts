@@ -1,6 +1,4 @@
 import * as core from '@actions/core';
-import { Octokit } from '@octokit/rest';
-import fetch from 'node-fetch';
 
 interface getDetailsInput{
     authToken: string;
@@ -11,12 +9,8 @@ export default async ({authToken, jiraAPIUrl} : getDetailsInput) => {
 try {
     core.info('fetching details...');
     core.info(`${jiraAPIUrl}`)
-    const octokit = new Octokit({
-        request: {
-            fetch : fetch,
-        }
-    })
-    const response = await octokit.request(jiraAPIUrl, {
+   
+    const response = await fetch(jiraAPIUrl, {
         headers: {
            Authorization: `Basic ${authToken}`
         }
