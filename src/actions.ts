@@ -23,18 +23,21 @@ export default async function getDetailsForPr() {
     const owner = context!.payload!.repository!.owner.login;
     const pull_number = context!.payload!.pull_request!.number;
     const repo = context!.payload!.pull_request!.base.repo.name;
+    const bodyContent = context!.payload.pull_request!.body;
     const jiraAPIUrl = `${orgUrl}/rest/api/2/issue/${jiraId}`;
     const fields = await retrieveDetails({
         authToken,
         jiraAPIUrl,
     })
     const title = `${jiraId} | ${fields.summary}`;
+    const body = `**Description** \n\n## ${fields.description} \n\n## ${bodyContent} `
     core.info(`API :::  ${fields}`)
     await client.rest.pulls.update({
         owner,
         repo,
         pull_number,
-        title
+        title,
+        body
     })
  } catch (error : any) {
     core.setFailed(`process failed with ::: ${error.message}`);
