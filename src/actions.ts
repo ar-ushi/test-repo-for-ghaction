@@ -25,6 +25,7 @@ export default async function getDetailsForPr() {
     const repo = context!.payload!.pull_request!.base.repo.name;
     const bodyContent = context!.payload.pull_request!.body;
     const jiraAPIUrl = `${orgUrl}/rest/api/2/issue/${jiraId}`;
+    const ghLabelAPIUrl = `/repos/${owner}/${repo}/`
     const fields = await retrieveDetails({
         authToken,
         jiraAPIUrl,
@@ -39,8 +40,9 @@ export default async function getDetailsForPr() {
         pull_number,
         title,
         body, 
-        labels : [issueType]
+        labels : issueType
     })
+    await client.request(`POST `)
  } catch (error : any) {
     core.setFailed(`process failed with ::: ${error.message}`);
  }   
