@@ -10,9 +10,10 @@ interface getDetailsInput{
 export default async ({authToken, jiraAPIUrl} : getDetailsInput) => {
 try {
     core.info('fetching details...');
+    core.info(`${jiraAPIUrl}`)
     const octokit = new Octokit({
         request: {
-            fetch,
+            fetch : fetch,
         }
     })
     const response = await octokit.request(jiraAPIUrl, {
