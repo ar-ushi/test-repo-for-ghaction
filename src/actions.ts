@@ -4,7 +4,7 @@ import * as gh from '@actions/github';
 import { Octokit } from '@octokit/rest';
 import retrieveDetails from './retrieve-details';
 
-const getDetailsForPr = async() => {
+export default async function getDetailsForPr() {
  try {
     const GHtoken = core.getInput('token', {required: true});
     const jiraId = core.getInput('jiraId', {required: true});
@@ -16,8 +16,8 @@ const getDetailsForPr = async() => {
         auth: GHtoken
     })
     const { context } = gh;
-    const pull_number = context.payload.pull_request.body;
-    const repo = context.payload.pull_request.base.repo.name;
+    const pull_number = context!.payload!.pull_request!.body;
+    const repo = context!.payload!.pull_request!.base.repo.name;
     const jiraAPIUrl = `${orgUrl}/rest/api/2/issue/${jiraId}`;
     const fields = await retrieveDetails({
         authToken,
@@ -30,11 +30,7 @@ const getDetailsForPr = async() => {
         pull_number,
         title
     })
- } catch (error) {
+ } catch (error : any) {
     core.setFailed(`process failed with ::: ${error.message}`);
  }   
-}
-
-module.exports = {
-    getDetailsForPr
 }
