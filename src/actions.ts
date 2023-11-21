@@ -30,8 +30,7 @@ export default async function getDetailsForPr() {
         jiraAPIUrl,
     })
     const title = `${jiraId} | ${fields.summary}`;
-    const sanitizedDescription = fields.description.replace(/^##\s*/, ''); 
-    const body = `**Description** \n\n## ${sanitizedDescription} \n\n## ${bodyContent} `
+    const body = `**Description** \n\n ${fields.description} \n\n ${bodyContent} `
     core.info(`API :::  ${fields}`)
     await client.rest.pulls.update({
         owner,
