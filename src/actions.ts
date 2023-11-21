@@ -30,14 +30,16 @@ export default async function getDetailsForPr() {
         jiraAPIUrl,
     })
     const title = `${jiraId} | ${fields.summary}`;
-    const body = `**Description** \n\n ${fields.description} \n\n ${bodyContent} `
+    const body = `**Description** \n\n ${fields.description} \n\n## ${bodyContent}`;
+    const issueType = fields.issuetype.name.toLowerCase(); 
     core.info(`API :::  ${fields}`)
     await client.rest.pulls.update({
         owner,
         repo,
         pull_number,
         title,
-        body
+        body, 
+        labels : [issueType]
     })
  } catch (error : any) {
     core.setFailed(`process failed with ::: ${error.message}`);
