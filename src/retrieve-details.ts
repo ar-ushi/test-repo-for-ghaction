@@ -17,7 +17,7 @@ try {
     });
     if (response.ok){
         const {fields} = await response.json() as any;
-        core.info(fields.summary); //debug fields
+        core.info(fields.description); //debug fields
         return fields;
     } else {
         throw new Error ('No response from Jira API');
