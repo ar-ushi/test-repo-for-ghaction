@@ -2,7 +2,7 @@ name: Update PR with Jira Ticket details
 on: pull_request
 jobs:
   update_pr_description:
-    runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
