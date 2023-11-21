@@ -3,6 +3,7 @@ import * as core from '@actions/core';
 import * as gh from '@actions/github';
 import { Octokit } from '@octokit/rest';
 import retrieveDetails from './retrieve-details';
+import fetch from 'node-fetch';
 
 export default async function getDetailsForPr() {
  try {
@@ -13,7 +14,10 @@ export default async function getDetailsForPr() {
     const username= core.getInput('username', {required: true});
     const authToken = Buffer.from(`${username}:${jiraToken}`).toString('base64');
     const client = new Octokit({
-        auth: GHtoken
+        auth: GHtoken,
+        request: {
+            fetch,
+        }
     })
     const { context } = gh;
     const owner = context!.payload!.repository!.owner.login;
@@ -22,7 +26,7 @@ export default async function getDetailsForPr() {
     const jiraAPIUrl = `${orgUrl}/rest/api/2/issue/${jiraId}`;
     const fields = await retrieveDetails({
         authToken,
-        jiraAPIUrl
+        jiraAPIUrl,
     })
     const title = `${jiraId} | ${fields.summary}`;
     core.info(`API :::  ${fields}`)
