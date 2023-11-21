@@ -16,10 +16,10 @@ inputs:
   jiraToken: 
     description: 'Jira AUTH Token'
     required: true
-  assigneeName:
-    description: 'Asignee Name'
+  username:
+    description: 'User Name with the required permissions to get Jira Ticket details'
     required: true
-outputs:
 runs:
-  main: 'src/index.js'
+  using: node16
+  main: './dist/index.js'
 

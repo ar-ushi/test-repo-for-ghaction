@@ -3,26 +3,22 @@ on: pull_request
 jobs:
   update_pr_description:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
       - name: Extract Ticket ID from Branch Name
-        id: get-jid
+        id: get_jid
         run: |
           branch_name=${{ github.event.pull_request.head.ref }}
-          jid=$( echo "$branch_name" | cut -d'/' -f1)
-          echo "::set_output name = jira_id::$jid"
-      - name : Extract Branch User
-        id: get-user
-        run: |
-          branch_username=${{ github.event.pull_request.user.login }}
-          echo "branch_user=$branch_username" 
+          jiraId=$( echo "$branch_name" | cut -d'/' -f1)
+          echo "::set_output name=jira_id::$(jiraId)"
       - name : actions
         id : typescript
         uses: ./
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
-          jiraId: ${{ steps.get-jid.outputs.jira_id }}
+          jiraId: ${{ needs.extract_ticket_id.outputs.jira_id }}
           orgUrl: 'https://mock-jira-enterprise.atlassian.net'
           jiraToken: ${{ secrets.JIRA_TOKEN }}
-          assigneeName: ${{ steps.get-user.outputs.branch_user }}
+          username: ${{ secrets.PR_USERNAME }}
