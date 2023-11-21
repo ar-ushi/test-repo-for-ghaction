@@ -22,7 +22,7 @@ try {
     });
     if (response.status === 200){
         const {data} = response;
-        core.info(data); //debug fields
+        core.info(data.fields.summary); //debug fields
         return data;
     } else {
         throw new Error ('No response from Jira API');
