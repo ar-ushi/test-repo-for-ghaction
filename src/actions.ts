@@ -16,7 +16,8 @@ export default async function getDetailsForPr() {
         auth: GHtoken
     })
     const { context } = gh;
-    const pull_number = context!.payload!.pull_request!.body;
+    const owner = context!.payload!.repository!.owner.login;
+    const pull_number = context!.payload!.pull_request!.number;
     const repo = context!.payload!.pull_request!.base.repo.name;
     const jiraAPIUrl = `${orgUrl}/rest/api/2/issue/${jiraId}`;
     const fields = await retrieveDetails({
@@ -26,6 +27,7 @@ export default async function getDetailsForPr() {
     const title = `${jiraId} | ${fields.summary}`;
     core.info(`API :::  ${fields}`)
     await client.rest.pulls.update({
+        owner,
         repo,
         pull_number,
         title
