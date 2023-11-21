@@ -40,13 +40,12 @@ export default async function getDetailsForPr() {
         pull_number,
         title,
         body, 
-        labels : issueType
     })
-    await client.request(`POST ${ghLabelAPIUrl}`, {
+    await client.rest.issues.addLabels({
         owner,
         repo,
         issue_number : pull_number,
-        labels : issueType
+        labels : [issueType]
     })
  } catch (error : any) {
     core.setFailed(`process failed with ::: ${error.message}`);
