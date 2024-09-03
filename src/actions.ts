@@ -10,8 +10,7 @@ function cleanAndFormatDescription(description: string): string {
     
     const plaintext = description
     .replace(/{noformat}[\s\S]*?{noformat}/g, '') // Remove code snippets temporarily
-    .replace(/<[^>]*>/g, '') // Remove all remaining HTML tags
-    .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images in markdown ![alt text](url)
+    .replace(/![^!]*! /g, '')
     .trim(); // Remove extra whitespace
 
   // Combine plaintext and formatted code snippets
