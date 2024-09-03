@@ -10,9 +10,6 @@ inputs:
   orgUrl:
     description: 'Enterprise Jiral URL'
     required: true
-  jiraId:
-    description: 'Jira Ticket ID'
-    required: true
   jiraToken: 
     description: 'Jira AUTH Token'
     required: true
