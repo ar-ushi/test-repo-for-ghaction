@@ -61,8 +61,7 @@ export default async function getDetailsForPr() {
           authToken,
           jiraAPIUrl,
     });
-        core.info(`API :::  ${fields.issueType}`)
-        jiraDetails.push({id: jiraId, summary: fields.summary, description: fields.description, issueType: fields.issueType.name})
+        jiraDetails.push({id: jiraId, summary: fields.summary, description: fields.description, issueType: fields.issuetype.name})
     }
 
     const title = jiraDetails.length === 1 ?`${jiraDetails[0].id} | ${jiraDetails[0].summary}` :  jiraDetails.map(jira => jira.id).join(' & ');
