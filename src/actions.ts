@@ -61,6 +61,7 @@ export default async function getDetailsForPr() {
           authToken,
           jiraAPIUrl,
     });
+        core.info(`API :::  ${fields.issueType}`)
         jiraDetails.push({id: jiraId, summary: fields.summary, description: fields.description, issueType: fields.issueType.name})
     }
 
