@@ -5,19 +5,12 @@ import { Octokit } from '@octokit/rest';
 import retrieveDetails from './retrieve-details';
 import fetch from 'node-fetch';
 
-function cleanAndFormatDescription(description: string): string {
-    const codeSnippets = description.match(/{noformat}[\s\S]*?{noformat}/g) || [];
-    
-    const plaintext = description
-    .replace(/{noformat}[\s\S]*?{noformat}/g, '') // Remove code snippets temporarily
-    .replace(/![^!]*! /g, '')
-    .trim(); // Remove extra whitespace
-
-  // Combine plaintext and formatted code snippets
-  const formattedCodeSnippets = codeSnippets.join('\n\n');
-
-  // Format plaintext and append code snippets
-  return `${plaintext}\n\n${formattedCodeSnippets}`;
+function cleanAndFormatDescription(description: string): string {    
+    return description
+    .replace(/{noformat}/g, '```')
+    .replace(/{noformat}/g, '```')
+    .replace(/!\S.*?!/g, '')
+    .trim(); 
   }
 
 export default async function getDetailsForPr() {
