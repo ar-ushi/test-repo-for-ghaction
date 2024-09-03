@@ -19,6 +19,9 @@ inputs:
   username:
     description: 'User Name with the required permissions to get Jira Ticket details'
     required: true
+  jiraKey:
+    description: 'Jira Key to look for'
+    required: true
 runs:
   using: node16
   main: './dist/index.js'
