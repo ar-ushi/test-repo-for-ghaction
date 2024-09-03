@@ -34,7 +34,6 @@ export default async function getDetailsForPr() {
     const pullRequestTitle = context.payload!.pull_request!.title;
     let jiraIds: string[] = [];
     let jiraDetails: JiraDetail[] = [];
-    let issueTypes: Set<string> = new Set();
 
     for (const key of jiraKey) {
         const jiraIdMatches = pullRequestTitle.match(new RegExp(`${key}-\\d+`, 'g'));
@@ -63,11 +62,11 @@ export default async function getDetailsForPr() {
           jiraAPIUrl,
     });
         jiraDetails.push({id: jiraId, summary: fields.summary, description: fields.description, issueType: fields.issueType.name})
-        issueTypes.add(fields.issuetype.name.toLowerCase());
     }
 
     const title = jiraDetails.length === 1 ?`${jiraDetails[0].id} | ${jiraDetails[0].summary}` :  jiraDetails.map(jira => jira.id).join(' & ');
     const jiraDescriptions = jiraDetails.map(jira => `${jira.id}: ${jira.description}`).join('\n\n');
+    const issueTypes = jiraDetails.map(jira => jira.issueType.toLowerCase());
 
     const body = `**Jira Description** \n\n${jiraDescriptions}\n\n## ${bodyContent}`;
     await client.rest.pulls.update({
@@ -81,7 +80,7 @@ export default async function getDetailsForPr() {
         owner,
         repo,
         issue_number : pull_number,
-        labels: Array.from(issueTypes)
+        labels: issueTypes
     })
  } catch (error : any) {
     core.setFailed(`process failed with ::: ${error.message}`);
