@@ -1,7 +1,7 @@
 name: Update PR with Jira Ticket details
-on: 
+on:
   pull_request:
-    types: 
+    types:
       - opened
       - reopened
 jobs:
