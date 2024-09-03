@@ -5,6 +5,22 @@ import { Octokit } from '@octokit/rest';
 import retrieveDetails from './retrieve-details';
 import fetch from 'node-fetch';
 
+function cleanAndFormatDescription(description: string): string {
+    const codeSnippets = description.match(/{noformat}[\s\S]*?{noformat}/g) || [];
+    
+    const plaintext = description
+    .replace(/{noformat}[\s\S]*?{noformat}/g, '') // Remove code snippets temporarily
+    .replace(/<[^>]*>/g, '') // Remove all remaining HTML tags
+    .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images in markdown ![alt text](url)
+    .trim(); // Remove extra whitespace
+
+  // Combine plaintext and formatted code snippets
+  const formattedCodeSnippets = codeSnippets.join('\n\n');
+
+  // Format plaintext and append code snippets
+  return `${plaintext}\n\n${formattedCodeSnippets}`;
+  }
+
 export default async function getDetailsForPr() {
  try {
     interface JiraDetail {
@@ -61,7 +77,8 @@ export default async function getDetailsForPr() {
           authToken,
           jiraAPIUrl,
     });
-        jiraDetails.push({id: jiraId, summary: fields.summary, description: fields.description, issueType: fields.issuetype.name})
+        const cleanedDescription = cleanAndFormatDescription(fields.description);
+        jiraDetails.push({id: jiraId, summary: fields.summary, description: cleanedDescription, issueType: fields.issuetype.name})
     }
 
     const title = jiraDetails.length === 1 ?`${jiraDetails[0].id} | ${jiraDetails[0].summary}` :  jiraDetails.map(jira => jira.id).join(' & ');
