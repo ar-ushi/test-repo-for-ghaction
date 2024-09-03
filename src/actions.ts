@@ -14,7 +14,7 @@ export default async function getDetailsForPr() {
         issueType: string;
     }      
     const GHtoken = core.getInput('token', {required: true});
-    const jiraKey = core.getMultilineInput('jiraKey', { required: true });
+    const jiraKey = core.getInput('jiraKey', { required: true }).split(',').map(key => key.trim());
     const orgUrl = core.getInput('orgUrl', {required: true});
     const jiraToken = core.getInput('jiraToken', {required: true});  
     const username= core.getInput('username', {required: true});

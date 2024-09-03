@@ -20,5 +20,4 @@ jobs:
           orgUrl: 'https://mock-enterprise.atlassian.net'
           jiraToken: ${{ secrets.JIRA_TOKEN }}
           username: ${{ secrets.PR_USERNAME }}
-          jiraKey: |
-            - MOE
+          jiraKey: 'MOE,LOSIM'
