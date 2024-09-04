@@ -52,8 +52,6 @@ export default async function getDetailsForPr() {
     });
 
     const commitMessages = commits.map(commit => commit.commit.message);
-    core.info(`Commit Messages::: ${commitMessages}`);
-
     const extractJiraIds = (text: string, key: string) => {
         const matches = text.match(new RegExp(`${key}-\\d+`, 'g'));
         if (matches) {
