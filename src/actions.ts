@@ -84,7 +84,8 @@ export default async function getDetailsForPr() {
           authToken,
           jiraAPIUrl,
     });
-        const fixVersions = fields.fixVersions.map((fv: { name: string; }) => fv.name);
+        core.info(fields);
+        const fixVersions = fields.fixVersions?.map((fv: { name: string; }) => fv.name);
         let desc = fields.summary;
         if (fields.description && fields.description.trim() !== '') {
             desc = cleanAndFormatDescription(fields.description);
@@ -95,7 +96,7 @@ export default async function getDetailsForPr() {
     const title = jiraDetails.length === 1 ?`${jiraDetails[0].id} | ${jiraDetails[0].summary}` :  jiraDetails.map(jira => jira.id).join(' & ');
     const jiraDescriptions = jiraDetails.map(jira => `${jira.id}: ${jira.description}`).join('\n\n');
     const issueTypes = jiraDetails.map(jira => jira.issueType.toLowerCase());
-    const fixVersions = jiraDetails.map(jira => jira.fixVersions).flat();
+    const fixVersions = jiraDetails.map(jira => jira.fixVersions)?.flat();
     
     const labelsToAdd = [...issueTypes, ...fixVersions];
 
