@@ -1,0 +1,24 @@
+name : 'Append Jira Details to PR'
+description: 'Adds Jira Ticket details for a PR including description, labels and priority'
+branding:
+  color: blue
+  icon: aperture
+inputs:
+  token:
+    description: 'The GitHub token used to authenticate API requests.'
+    required: true
+  orgUrl:
+    description: 'The base URL of your Jira Enterprise instance.'
+    required: true
+  jiraKey:
+    description: 'The Jira Key(s) associated to Project.'
+    required: true
+  jiraToken: 
+    description: 'The Jira API token used for authentication.'
+    required: true
+  username:
+    description: 'The email address to authenticate Jira Rest API Request'
+    required: true
+runs:
+  using: node20
+  main: './dist/index.js'
