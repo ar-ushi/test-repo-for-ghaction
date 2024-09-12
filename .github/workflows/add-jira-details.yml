@@ -1,16 +1,19 @@
-name: "Add Jira Details to PR"
-on:
-  workflow_run:
-    workflows: ["PR Tasks Completed Check"] # Name of the first workflow
-    types:
-      - completed # This triggers the workflow when the first one completes
+name: Add Jira Details to PR
 
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
 jobs:
-  dependent-task:
+  append_jira_details:
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
       - name: Append Jira Details to PR
-        uses: ar-ushi/append-jira-details-action@v1.1.0
+        uses: ar-ushi/append-jira-details-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           orgUrl: "https://mock-jira-enterprise.atlassian.net"
