@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.7
       - name: Append Jira Details to PR
-        uses: ar-ushi/append-jira-details-action@v3
+        uses: ar-ushi/append-jira-details-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           orgUrl: "https://mock-jira-enterprise.atlassian.net"
